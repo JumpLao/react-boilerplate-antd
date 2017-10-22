@@ -37,4 +37,12 @@ module.exports = require('./webpack.base.babel')({
   performance: {
     hints: false,
   },
+  babelQuery: {
+    plugins: [
+      ['import', {
+        libraryName: 'antd',
+        style: true,
+      }],
+    ],
+  },
 });

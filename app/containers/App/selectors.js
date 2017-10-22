@@ -1,12 +1,25 @@
 import { createSelector } from 'reselect';
 
-const selectRoute = (state) => state.get('route');
+/**
+ * Direct selector to the app state domain
+ */
+const selectAppDomain = (state) => state.get('app');
 
-const makeSelectLocation = () => createSelector(
-  selectRoute,
-  (routeState) => routeState.get('location').toJS()
+/**
+ * Other specific selectors
+ */
+
+
+/**
+ * Default selector used by App
+ */
+
+const makeSelectApp = () => createSelector(
+  selectAppDomain,
+  (substate) => substate.toJS()
 );
 
+export default makeSelectApp;
 export {
-  makeSelectLocation,
+  selectAppDomain,
 };

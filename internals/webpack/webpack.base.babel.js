@@ -1,16 +1,15 @@
 /**
  * COMMON WEBPACK CONFIGURATION
  */
-
+const { join } = require('path');
 const path = require('path');
 const webpack = require('webpack');
-
+const pkg = require(join(process.cwd(), 'package.json'));
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
 // see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
 // in the next major version of loader-utils.'
 process.noDeprecation = true;
-
 module.exports = (options) => ({
   entry: options.entry,
   output: Object.assign({ // Compile into js/build.js
@@ -18,6 +17,7 @@ module.exports = (options) => ({
     publicPath: '/',
   }, options.output), // Merge with env dependent settings
   module: {
+    noParse: /moment\.js/,
     rules: [
       {
         test: /\.js$/, // Transform all .js files required somewhere with Babel
@@ -40,6 +40,24 @@ module.exports = (options) => ({
         test: /\.css$/,
         include: /node_modules/,
         use: ['style-loader', 'css-loader'],
+      },
+      { test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: { sourceMap: true },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: true,
+              modifyVars: pkg.theme,
+            },
+          },
+        ],
       },
       {
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
@@ -99,6 +117,9 @@ module.exports = (options) => ({
     new webpack.NamedModulesPlugin(),
   ]),
   resolve: {
+    alias: {
+      moment$: 'moment/moment.js',
+    },
     modules: ['app', 'node_modules'],
     extensions: [
       '.js',

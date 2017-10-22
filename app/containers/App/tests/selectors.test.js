@@ -1,15 +1,8 @@
-import { fromJS } from 'immutable';
+// import { fromJS } from 'immutable';
+// import { selectAppDomain } from '../selectors';
 
-import { makeSelectLocation } from 'containers/App/selectors';
-
-describe('makeSelectLocation', () => {
-  it('should select the location', () => {
-    const route = fromJS({
-      location: { pathname: '/foo' },
-    });
-    const mockedState = fromJS({
-      route,
-    });
-    expect(makeSelectLocation()(mockedState)).toEqual(route.get('location').toJS());
+describe('selectAppDomain', () => {
+  it('Expect to have unit tests specified', () => {
+    expect(true).toEqual(false);
   });
 });
