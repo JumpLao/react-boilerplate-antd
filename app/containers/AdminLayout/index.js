@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import styled from 'styled-components';
-import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { logout } from 'containers/App/actions';
 
 import injectSaga from 'utils/injectSaga';
@@ -38,7 +38,6 @@ export class AdminLayout extends React.PureComponent { // eslint-disable-line re
     this.props.dispatch(logout());
   }
   handleCollapse(collapsed) {
-    console.log(collapsed)
     this.props.dispatch(toggleSidebarCollapse(collapsed));
   }
   render() {
