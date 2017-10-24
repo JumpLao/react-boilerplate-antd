@@ -74,7 +74,7 @@ export class SignupForm extends React.PureComponent { // eslint-disable-line rea
               {this.props.form.getFieldDecorator('confirmPassword', {
                 rules: [
                   { required: true, message: 'Please re-enter your Password!' },
-                  { validator: this.handleConfirmPassword, message: 'Confirm password should match with password' }
+                  { validator: this.handleConfirmPassword, message: 'Confirm password should match with password' },
                 ],
               })(
                 <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Confirm password" />
@@ -94,7 +94,7 @@ export class SignupForm extends React.PureComponent { // eslint-disable-line rea
 }
 
 SignupForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   form: PropTypes.object,
 };
 

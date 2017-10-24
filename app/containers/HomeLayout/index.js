@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { AnimatedSwitch } from 'react-router-transition';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import SigninForm from 'containers/SigninForm/Loadable';
 import SignupForm from 'containers/SignupForm/Loadable';

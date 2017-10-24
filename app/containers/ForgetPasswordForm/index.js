@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
-import { Form, Card, Input, Icon, Button } from 'antd';
+import { Form, Card, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import CenteredLayout from 'components/CenteredLayout';
 import { SIGNIN_PATH } from 'containers/App/constants';
@@ -56,7 +56,7 @@ export class ForgetPasswordForm extends React.PureComponent { // eslint-disable-
 }
 
 ForgetPasswordForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   form: PropTypes.object,
 };
 

@@ -304,5 +304,7 @@
     "webpack-dev-middleware": "1.11.0",
     "webpack-hot-middleware": "2.18.0"
   },
-  "theme": {}
+  "theme": {
+    "primary-color": "#1565c0"
+  }
 }
