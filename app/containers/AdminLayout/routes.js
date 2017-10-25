@@ -77,7 +77,7 @@ function AdminMenuRecursive(basePath, r = routes) {
   return r.map((route) => {
     let view = (<Menu.Item key={joinPath(basePath, route.path)}>
       <Link to={joinPath(basePath, route.path)}>
-        <Icon type={route.icon} />{route.menu}
+        <Icon type={route.icon} /><span>{route.menu}</span>
       </Link>
     </Menu.Item>);
     if (route.children && route.children.length > 0) {

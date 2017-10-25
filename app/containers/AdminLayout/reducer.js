@@ -21,7 +21,7 @@ function adminLayoutReducer(state = initialState, action) {
     case DEFAULT_ACTION:
       return state;
     case TOGGLE_SIDEBAR_COLLAPSE:
-      return state.set(['sidebar', 'collapse'], action.collapse);
+      return state.setIn(['sidebar', 'collapse'], action.collapse);
     default:
       return state;
   }

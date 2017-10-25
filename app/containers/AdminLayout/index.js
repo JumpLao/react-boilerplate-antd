@@ -24,7 +24,7 @@ import { AdminRouter, AdminBreadcrumb, AdminMenu } from './routes';
 import makeSelectAdminLayout from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { toggleSidebarCollapse } from './actions';
+import { setSidebarCollapse } from './actions';
 // import messages from './messages';
 const Logo = styled('div')`
   font-size: 16px;
@@ -33,16 +33,16 @@ const Logo = styled('div')`
 const { Header, Content, Footer, Sider } = Layout;
 // const SubMenu = Menu.SubMenu;
 export class AdminLayout extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.handleCollapse = this.handleCollapse.bind(this);
-  }
-  handleLogout() {
+  // constructor(props) {
+  //   super(props);
+  //   this.handleLogout = this.handleLogout.bind(this);
+  //   this.handleCollapse = this.handleCollapse.bind(this);
+  // }
+  handleLogout = () => {
     this.props.dispatch(logout());
   }
-  handleCollapse(collapsed) {
-    this.props.dispatch(toggleSidebarCollapse(collapsed));
+  handleCollapse = (collapsed) => {
+    this.props.dispatch(setSidebarCollapse(collapsed));
   }
   render() {
     return (
