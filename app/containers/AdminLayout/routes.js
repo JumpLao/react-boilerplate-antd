@@ -8,12 +8,36 @@ import UserDetailPage from 'containers/UserDetailPage/Loadable';
 import MyAccountPage from 'containers/MyAccountPage/Loadable';
 /* eslint-disable object-property-newline */
 const routes = [
-  { path: '', component: DashboardPage, title: 'Dashboard' },
-  { path: 'users', title: 'Users', children: [
-    { path: '', component: UsersPage },
-    { path: ':id', component: UserDetailPage, title: 'User\'s info' },
-  ] },
-  { path: 'myaccount', component: MyAccountPage, title: 'My account' },
+  { path: '',
+    title: 'Dashboard',
+    menu: 'Dashboard',
+    icon: 'appstore',
+    component: DashboardPage,
+  },
+  { path: 'users',
+    title: 'Users',
+    menu: 'Users',
+    icon: 'user',
+    children: [
+      { path: '',
+        menu: 'User',
+        icon: 'man',
+        component: UsersPage,
+      },
+      { path: ':id',
+        title: 'User\'s info',
+        menu: 'User\'s info',
+        icon: 'woman',
+        component: UserDetailPage,
+      },
+    ],
+  },
+  { path: 'myaccount',
+    title: 'My account',
+    menu: 'My account',
+    icon: 'appstore',
+    component: MyAccountPage,
+  },
 ];
 
 function joinPath(base, path) {
@@ -28,20 +52,54 @@ function AdminBreadcrumbRecursive(basePath, r = routes) {
   return (
     <Switch>
       {r.map((route) => (
-        <Route strict exact={!(route.children && route.children.length > 0)} key={joinPath(basePath, route.path)} path={joinPath(basePath, route.path)}>
+        <Route
+          strict
+          exact={!(route.children && route.children.length > 0)}
+          key={joinPath(basePath, route.path)}
+          path={joinPath(basePath, route.path)}
+        >
           <span>
             {route.title && <span className="ant-breadcrumb-separator">/</span>}
-            <Link className="ant-breadcrumb-link" to={joinPath(basePath, route.path)}>{route.title}</Link>
-            {route.children && route.children.length > 0 && AdminBreadcrumbRecursive(joinPath(basePath, route.path), route.children)}
+            <Link
+              className="ant-breadcrumb-link"
+              to={joinPath(basePath, route.path)}
+            >
+              {route.title}
+            </Link>
+            {route.children && route.children.length > 0 &&
+              AdminBreadcrumbRecursive(joinPath(basePath, route.path), route.children)}
           </span>
         </Route>
       ))}
     </Switch>);
 }
+function AdminMenuRecursive(basePath, r = routes) {
+  return r.map((route) => {
+    let view = (<Menu.Item key={joinPath(basePath, route.path)}>
+      <Link to={joinPath(basePath, route.path)}>
+        <Icon type={route.icon} />{route.menu}
+      </Link>
+    </Menu.Item>);
+    if (route.children && route.children.length > 0) {
+      view = (
+        <Menu.SubMenu
+          title={<span><Icon type={route.icon} /><span>{route.menu}</span></span>}
+          key={joinPath(basePath, route.path)}
+        >
+          {AdminMenuRecursive(joinPath(basePath, route.path), route.children)}
+        </Menu.SubMenu>
+      );
+    }
+    return view;
+  });
+}
+
 export function AdminBreadcrumb(basePath, r = routes) {
   return (
     <div style={{ margin: '16px 0' }}>
-      <Link className="ant-breadcrumb-link" to={`${basePath}`}><Icon type="home" style={{ fontSize: 16 }}></Icon></Link>
+      <Link className="ant-breadcrumb-link" to={`${basePath}`}>
+        <Icon type="home" style={{ fontSize: 16 }}></Icon>
+      </Link>
       {AdminBreadcrumbRecursive(basePath, r)}
     </div>
   );
@@ -50,30 +108,24 @@ export function AdminRouter(basePath, r = routes) {
   return (
     <Switch>
       {r.map((route) => (
-        <Route strict exact={!(route.children && route.children.length > 0)} key={joinPath(basePath, route.path)} path={joinPath(basePath, route.path)} component={route.component}>
-          {route.children && route.children.length > 0 && AdminRouter(joinPath(basePath, route.path), route.children)}
+        <Route
+          strict
+          exact={!(route.children && route.children.length > 0)}
+          key={joinPath(basePath, route.path)}
+          path={joinPath(basePath, route.path)}
+          component={route.component}
+        >
+          {route.children && route.children.length > 0 &&
+            AdminRouter(joinPath(basePath, route.path), route.children)}
         </Route>
       ))}
     </Switch>);
-}
-function AdminMenuRecursive(basePath, r = routes) {
-  return r.map((route) => {
-    let view = (<Menu.Item key={joinPath(basePath, route.path)}><Link to={joinPath(basePath, route.path)}><Icon type="appstore" />{route.title}</Link></Menu.Item>);
-    if (route.children && route.children.length > 0) {
-      view = (
-        <Menu.SubMenu title={<span><Icon type="appstore" /><span>{route.title}</span></span>} key={joinPath(basePath, route.path)}>
-          {AdminMenuRecursive(joinPath(basePath, route.path), route.children)}
-        </Menu.SubMenu>
-      );
-    }
-    return view;
-  });
 }
 export function AdminMenu(basePath, r = routes) {
   return (
     <Menu theme="dark" mode="inline">
       {AdminMenuRecursive(basePath, r)}
-      <Menu.Item><Icon type="appstore" /><span>Logout</span></Menu.Item>
+      <Menu.Item><Icon type="logout" /><span>Logout</span></Menu.Item>
     </Menu>);
 }
 export default routes;
