@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { call, put, /* select, */ takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { LOGIN_REQUEST, LOGOUT, SIGNIN_PATH } from './constants';
@@ -6,12 +7,11 @@ import { loginSuccess, loginFail } from './actions';
 
 export function loginApi(credential) {
   return new Promise((resolve, reject) => {
-    const now = new Date(Date.now());
     if (credential.username === 'demo' && credential.password === 'demo') {
       setTimeout(() => {
         resolve({
           token: true,
-          expire: now.setHours(now.getHours() + 1),
+          expire: moment().add(1, 'h').format(),
         });
       }, 1000);
     } else {

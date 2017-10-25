@@ -12,10 +12,12 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Form, Card, Input, Icon, Button, Alert } from 'antd';
 import { Link, Redirect } from 'react-router-dom';
+import moment from 'moment';
+import styled from 'styled-components';
+
 import { login } from 'containers/App/actions';
 import { DEFAULT_REDIRECT_PATH } from 'containers/App/constants';
 import CenteredLayout from 'components/CenteredLayout';
-import styled from 'styled-components';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectSigninForm, { makeSelectAuth } from './selectors';
@@ -45,7 +47,7 @@ export class SigninForm extends React.PureComponent { // eslint-disable-line rea
   }
   render() {
     const { from } = this.props.location.state || { from: { pathname: DEFAULT_REDIRECT_PATH } };
-    if (this.props.auth.token && this.props.auth.expire >= new Date(Date.now())) { // is authenticated
+    if (this.props.auth.token && moment(this.props.auth.expire) >= moment()) { // is authenticated
       return (
         <Redirect to={from}></Redirect>
       );
