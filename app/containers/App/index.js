@@ -11,17 +11,33 @@ import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
+import { AnimatedSwitch } from 'react-router-transition';
 import { ConnectedRouter } from 'react-router-redux';
+
 import PrivateRoute from 'containers/PrivateRoute/Loadable';
-import HomeLayout from 'containers/HomeLayout/Loadable';
+// import HomeLayout from 'containers/HomeLayout/Loadable';
 import AdminLayout from 'containers/AdminLayout/Loadable';
+import SigninForm from 'containers/SigninForm/Loadable';
+import SignupForm from 'containers/SignupForm/Loadable';
+import ForgetPasswordForm from 'containers/ForgetPasswordForm/Loadable';
+import ErrorPage from 'containers/ErrorPage/Loadable';
+import { SIGNIN_PATH } from 'containers/App/constants';
+import { ERR_NOT_FOUND, ERR_FORBIDDEN } from 'containers/ErrorPage/constants';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectApp from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 // import messages from './messages';
+
+const ForbiddenPage = (props) => (
+  <ErrorPage error={ERR_FORBIDDEN} {...props}></ErrorPage>
+);
+const NotFoundPage = (props) => (
+  <ErrorPage error={ERR_NOT_FOUND} {...props}></ErrorPage>
+);
 
 export class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /* constructor (props) {
@@ -36,10 +52,20 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           <meta name="description" content="Description of App" />
         </Helmet>
         <ConnectedRouter history={this.props.history}>
-          <Switch>
+          <AnimatedSwitch
+            atEnter={{ opacity: 0 }}
+            atLeave={{ opacity: 0 }}
+            atActive={{ opacity: 1 }}
+            className="switch-wrapper"
+          >
             <PrivateRoute path="/admin" component={AdminLayout}></PrivateRoute>
-            <Route path="" component={HomeLayout}></Route>
-          </Switch>
+            {/* <Route path="" component={HomeLayout}></Route> */}
+            <Route exact path={SIGNIN_PATH} component={SigninForm}></Route>
+            <Route exact path="/signup" component={SignupForm}></Route>
+            <Route exact path="/forgotpassword" component={ForgetPasswordForm}></Route>
+            <Route exact path="/forbidden" component={ForbiddenPage}></Route>
+            <Route component={NotFoundPage}></Route>
+          </AnimatedSwitch>
         </ConnectedRouter>
       </div>
     );

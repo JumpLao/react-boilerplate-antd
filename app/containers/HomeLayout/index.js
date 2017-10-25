@@ -13,12 +13,14 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Route, withRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+
 import SigninForm from 'containers/SigninForm/Loadable';
 import SignupForm from 'containers/SignupForm/Loadable';
 import ForgetPasswordForm from 'containers/ForgetPasswordForm/Loadable';
 import ErrorPage from 'containers/ErrorPage/Loadable';
 import { SIGNIN_PATH } from 'containers/App/constants';
 import { ERR_NOT_FOUND, ERR_FORBIDDEN } from 'containers/ErrorPage/constants';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectHomeLayout from './selectors';
