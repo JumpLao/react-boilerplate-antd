@@ -44,6 +44,7 @@ export class AdminLayout extends React.PureComponent { // eslint-disable-line re
   handleCollapse = (collapsed) => {
     this.props.dispatch(setSidebarCollapse(collapsed));
   }
+
   render() {
     return (
       <ConnectedRouter history={this.props.history}>
@@ -53,11 +54,12 @@ export class AdminLayout extends React.PureComponent { // eslint-disable-line re
           </Header>
           <Layout>
             <Sider
+              breakpoint="sm"
               collapsible
               collapsed={this.props.adminlayout.sidebar.collapse}
               onCollapse={this.handleCollapse}
             >
-              {AdminMenu(this.props.match.url)}
+              {AdminMenu(this.props.match.url, this.props.location.pathname)}
             </Sider>
             <Layout>
               <Content style={{ margin: '0 16px' }}>
@@ -80,6 +82,7 @@ AdminLayout.propTypes = {
   adminlayout: PropTypes.object,
   history: PropTypes.object,
   match: PropTypes.object,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

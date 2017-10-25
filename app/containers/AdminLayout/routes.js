@@ -121,9 +121,14 @@ export function AdminRouter(basePath, r = routes) {
       ))}
     </Switch>);
 }
-export function AdminMenu(basePath, r = routes) {
+export function AdminMenu(basePath, currentPath, r = routes) {
   return (
-    <Menu theme="dark" mode="inline">
+    <Menu
+      theme="dark"
+      mode="inline"
+      defaultSelectedKeys={[currentPath]}
+      defaultOpenKeys={[currentPath]}
+    >
       {AdminMenuRecursive(basePath, r)}
       <Menu.Item><Icon type="logout" /><span>Logout</span></Menu.Item>
     </Menu>);
