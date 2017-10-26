@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Redirect } from 'react-router-dom';
 import { AnimatedSwitch } from 'react-router-transition';
 import { ConnectedRouter } from 'react-router-redux';
 
@@ -60,6 +60,11 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           >
             <PrivateRoute path="/admin" component={AdminLayout}></PrivateRoute>
             {/* <Route path="" component={HomeLayout}></Route> */}
+            <Route
+              exact
+              path="/"
+              render={() => (<Redirect to={{ pathname: SIGNIN_PATH }} />)}
+            />
             <Route exact path={SIGNIN_PATH} component={SigninForm}></Route>
             <Route exact path="/signup" component={SignupForm}></Route>
             <Route exact path="/forgotpassword" component={ForgetPasswordForm}></Route>
@@ -75,6 +80,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 App.propTypes = {
  // dispatch: PropTypes.func.isRequired,
   history: PropTypes.object,
+  // location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
