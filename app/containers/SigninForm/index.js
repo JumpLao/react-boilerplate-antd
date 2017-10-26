@@ -74,7 +74,7 @@ export class SigninForm extends React.PureComponent { // eslint-disable-line rea
               <div>Hint demo/demo</div>
               <Link to="/forgotpassword">Forgot password</Link>
               <LoginButton type="primary" htmlType="submit" loading={this.props.auth.loading}>
-                Log in
+                Login
               </LoginButton>
               Or <Link to="/signup" >register now!</Link>
               {this.props.auth.error && <Alert description={this.props.auth.error} type="error" closable />}

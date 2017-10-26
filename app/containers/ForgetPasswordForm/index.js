@@ -46,7 +46,7 @@ export class ForgetPasswordForm extends React.PureComponent { // eslint-disable-
               <LoginButton type="primary" htmlType="submit">
                 Send email
               </LoginButton>
-              <Link to={SIGNIN_PATH} >Back to signin</Link>
+              <Link to={SIGNIN_PATH} >Back to login</Link>
             </FormItem>
           </LoginForm>
         </Card>
