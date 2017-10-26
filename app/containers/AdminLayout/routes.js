@@ -1,14 +1,17 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import 'antd/lib/breadcrumb/style/index.less';
 import { Icon, Menu } from 'antd';
+
 import DashboardPage from 'containers/DashboardPage/Loadable';
 import UsersPage from 'containers/UsersPage/Loadable';
 import UserDetailPage from 'containers/UserDetailPage/Loadable';
 import MyAccountPage from 'containers/MyAccountPage/Loadable';
+import ErrorPage from 'containers/ErrorPage/Loadable';
+import { ERR_NOT_FOUND } from 'containers/ErrorPage/constants';
 /* eslint-disable object-property-newline */
 const routes = [
-  { path: '',
+  { path: 'dashboard',
     title: 'Dashboard',
     menu: 'Dashboard',
     icon: 'appstore',
@@ -39,6 +42,10 @@ const routes = [
     component: MyAccountPage,
   },
 ];
+
+const NotFoundPage = (props) => (
+  <ErrorPage error={ERR_NOT_FOUND} {...props}></ErrorPage>
+);
 
 function joinPath(base, path) {
   let result = `${base}/${path}`;
@@ -107,6 +114,11 @@ export function AdminBreadcrumb(basePath, r = routes) {
 export function AdminRouter(basePath, r = routes) {
   return (
     <Switch>
+      <Route
+        exact
+        path="/admin"
+        render={() => (<Redirect to={{ pathname: '/admin/dashboard' }} />)}
+      />
       {r.map((route) => (
         <Route
           strict
@@ -119,7 +131,9 @@ export function AdminRouter(basePath, r = routes) {
             AdminRouter(joinPath(basePath, route.path), route.children)}
         </Route>
       ))}
-    </Switch>);
+      <Route component={NotFoundPage} />
+    </Switch>
+  );
 }
 export function AdminMenu(basePath, currentPath, r = routes) {
   return (
