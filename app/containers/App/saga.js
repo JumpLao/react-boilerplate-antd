@@ -21,6 +21,12 @@ export function loginApi(credential) {
     }
   });
 }
+export function logoutApi() {
+  return new Promise((resolve) => {
+    resolve({});
+  });
+}
+
 export function* login({ credential }) {
   try {
     const result = yield call(loginApi, credential);
@@ -32,6 +38,14 @@ export function* login({ credential }) {
 export function* logoutRedirect() {
   yield put(push(SIGNIN_PATH));
 }
+// export function* logout() {
+//   try {
+//     const result = yield call(logoutApi);
+//     yield put(logoutSucccess(result));
+//   } catch (e) {
+//     yield put(logoutFail(e));
+//   }
+// }
 
 export default function* defaultSaga() {
   // See example in containers/HomePage/saga.js

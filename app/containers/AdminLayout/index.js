@@ -12,7 +12,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import styled from 'styled-components';
-import { Layout /* , Menu, Breadcrumb, Icon */ } from 'antd';
+// import { Layout /* , Menu, Breadcrumb, Icon */ } from 'antd';
+import { Layout, Icon, Menu } from 'antd';
 import { logout } from 'containers/App/actions';
 // import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -39,6 +40,7 @@ export class AdminLayout extends React.PureComponent { // eslint-disable-line re
   //   this.handleCollapse = this.handleCollapse.bind(this);
   // }
   handleLogout = () => {
+    console.log('logout');
     this.props.dispatch(logout());
   }
   handleCollapse = (collapsed) => {
@@ -46,6 +48,7 @@ export class AdminLayout extends React.PureComponent { // eslint-disable-line re
   }
 
   render() {
+    const currentPath = this.props.location.pathname;
     return (
       <ConnectedRouter history={this.props.history}>
         <Layout style={{ minHeight: '100vh' }}>
@@ -59,7 +62,20 @@ export class AdminLayout extends React.PureComponent { // eslint-disable-line re
               collapsed={this.props.adminlayout.sidebar.collapse}
               onCollapse={this.handleCollapse}
             >
-              {AdminMenu(this.props.match.url, this.props.location.pathname)}
+              <Menu
+                theme="dark"
+                mode="inline"
+                defaultSelectedKeys={[currentPath]}
+                defaultOpenKeys={[currentPath]}
+              >
+                {AdminMenu(this.props.match.url)}
+                <Menu.Item>
+                  <button onClick={this.handleLogout}>
+                    <Icon type="logout" />
+                    <span>Logout</span>
+                  </button>
+                </Menu.Item>
+              </Menu>
             </Sider>
             <Layout>
               <Content style={{ margin: '0 16px' }}>
