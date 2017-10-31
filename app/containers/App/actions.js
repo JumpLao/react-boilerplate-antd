@@ -10,6 +10,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
 } from './constants';
 
 export function defaultAction() {
@@ -35,8 +37,19 @@ export function loginFail(error) {
     error,
   };
 }
+
 export function logout() {
   return {
     type: LOGOUT,
+  };
+}
+export function logoutSuccess() {
+  return {
+    type: LOGOUT_SUCCESS,
+  };
+}
+export function logoutFail() {
+  return {
+    type: LOGOUT_FAIL,
   };
 }

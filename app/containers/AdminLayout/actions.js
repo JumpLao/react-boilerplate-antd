@@ -14,7 +14,7 @@ export function defaultAction() {
     type: DEFAULT_ACTION,
   };
 }
-export function toggleSidebarCollapse(collapse) {
+export function setSidebarCollapse(collapse) {
   return {
     type: TOGGLE_SIDEBAR_COLLAPSE,
     collapse,

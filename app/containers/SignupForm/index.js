@@ -84,7 +84,7 @@ export class SignupForm extends React.PureComponent { // eslint-disable-line rea
               <LoginButton type="primary" htmlType="submit">
                 Create account
               </LoginButton>
-              Already have an account? <Link to={SIGNIN_PATH} >Signin</Link>
+              Already have an account? <Link to={SIGNIN_PATH} >Login</Link>
             </FormItem>
           </LoginForm>
         </Card>

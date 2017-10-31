@@ -69,7 +69,7 @@ export class ErrorPage extends React.PureComponent { // eslint-disable-line reac
           </h4>
           <div style={{ textAlign: 'center' }}>
             <Link to={{ pathname: SIGNIN_PATH, state: { from } }}>
-              <Button type="primary" onClick={() => {}}>Signin</Button>
+              <Button type="primary" onClick={() => {}}>Login</Button>
             </Link>
             <Link to={{ pathname: '/' }}>
               <Button onClick={() => {}}>Go to home</Button>

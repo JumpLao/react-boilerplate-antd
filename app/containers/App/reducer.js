@@ -7,9 +7,9 @@
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import {
+  LOGIN_REQUEST,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  LOGIN_REQUEST,
   LOGOUT,
 } from './constants';
 const initialState = fromJS({

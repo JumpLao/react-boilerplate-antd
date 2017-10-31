@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Route, Redirect } from 'react-router-dom';
+import moment from 'moment';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectPrivateRoute, { makeSelectAuth } from './selectors';
@@ -22,13 +24,12 @@ export class PrivateRoute extends React.PureComponent { // eslint-disable-line r
   render() {
     const { component: Component, ...rest } = this.props;
     return (
-      (this.props.auth.token && this.props.auth.expire >= new Date(Date.now())) ?
+      (this.props.auth.token && moment(this.props.auth.expire) >= moment()) ?
       (
-        <Route component={Component} {...rest}>
-        </Route>
+        <Route component={Component} {...rest} />
       ) :
       (
-        <Redirect to={{ pathname: '/forbidden', state: { from: this.props.location } }} ></Redirect>
+        <Redirect to={{ pathname: '/forbidden', state: { from: this.props.location } }} />
       )
     );
   }
